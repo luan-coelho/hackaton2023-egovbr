@@ -1,0 +1,12 @@
+@startuml
+class Usuario {
+    - id: Long
+    - email: String
+    - senha: String
+}
+
+class Grupo {
+    - id: Long
+}
+
+@enduml
