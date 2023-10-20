@@ -8,28 +8,32 @@ import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/form";
-import { useMessage } from "@/hooks/useMessage";
-import { MessageRoot } from "@/components/message/message-root";
 import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import pt from "date-fns/locale/pt";
 import { Grupo } from "@/types";
 import api from "@/services/api";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { useFetch } from "@/hooks/useFetch";
 
 registerLocale("pt", pt);
 
 const schema = z.object({
-  description: z.string()
-    .nonempty("A descrição é obrigatória"),
-  period: z.date({
-    required_error: "O período é obrigatório",
-  }),
+  titulo: z.string()
+    .nonempty("O título é obrigatório"),
+  imagem: z.string()
+    .nonempty("Informe um link da imagem"),
 });
 
-export default function EditarGrupo({ params }: { params: { id: number } }) {
-  const { message, showMessage, hideMessage } = useMessage();
+export default function EditarGrupo({ params }: {
+  params: {
+    id: number
+  }
+}) {
+  const router = useRouter();
+
+  const { data, isLoading } = useFetch<Grupo>(`http://localhost:8080/grupo/${params.id}`);
 
   const createGrupo = useForm<Grupo>({
     resolver: zodResolver(schema),
@@ -38,14 +42,12 @@ export default function EditarGrupo({ params }: { params: { id: number } }) {
   const { handleSubmit } = createGrupo;
 
   async function atualizarGrupo(grupo: Grupo) {
-    await api.post(`http://localhost:8080/grupo/${grupo.id}`, grupo);
-    redirect("/grupo");
+    await api.put(`http://localhost:8080/grupo/${data?.id}`, grupo);
+    router.push("/grupo");
   }
 
   return (
     <>
-      <MessageRoot value={message} />
-
       <FormProvider {...createGrupo}>
         <form onSubmit={handleSubmit(atualizarGrupo)} className="grid gap-4">
           <Form.Field>
@@ -56,15 +58,15 @@ export default function EditarGrupo({ params }: { params: { id: number } }) {
             <Form.ErrorMessage field="titulo" />
           </Form.Field>
           <Form.Field>
-            <Form.Label htmlFor="description">
-              Descrição
+            <Form.Label htmlFor="imagem">
+              URL da imagem
             </Form.Label>
-            <Form.TextField name="description" />
-            <Form.ErrorMessage field="description" />
+            <Form.TextField name="imagem" />
+            <Form.ErrorMessage field="imagem" />
           </Form.Field>
           <DialogFooter>
-            <Button type="submit">
-              Cadastrar
+            <Button className="bg-blue-600 text-white" type="submit">
+              Atualizar
             </Button>
           </DialogFooter>
         </form>

@@ -14,7 +14,7 @@ export function TextField(props: InputProps) {
       id={props.name}
       {...register(props.name)}
       {...props}
-      className={errors[props.name] ? "border-red-500" : ""}
+      className={errors[props.name] ? "bg-white border-red-500" : "bg-white"}
     />
   );
 }
