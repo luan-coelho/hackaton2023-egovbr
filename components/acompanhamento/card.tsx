@@ -1,11 +1,21 @@
-type Acompanhamento = {
-  descricao: string
+import Image from "next/image";
+
+type PostagemCardProps = {
+  postagem: Postagem
 }
 
-export default function AcompanhamentoCard({ descricao }: Acompanhamento) {
+export default function PostagemCard({ postagem }: PostagemCardProps) {
   return <>
-    <div className="bg-red-400 w-[300px] h-[300px] flex items-center justify-center rounded-2xl">
-      <span className="text-5xl">{descricao}</span>
+    <div
+      className="bg-[#044CB8] flex items-center gap-4 w-[300px] flex items-center justify-center rounded-2xl flex-col">
+      <div className="rounded-2xl">
+        <Image className="rounded-2xl w-full font-medium" src={postagem.urlImagem} alt="ew" width={200} height={200} />
+      </div>
+      <div className="p-4 flex flex-col">
+        <span className="text-[#FFC82A] text-2xl font-medium">{postagem.descricaoPostagem}</span>
+        <span className="text-white text-xl font-medium">{postagem.descricaoPostagem}</span>
+        <span className="text-zinc-300 text-xl">{postagem.descricaoPostagem}</span>
+      </div>
     </div>
   </>;
 }

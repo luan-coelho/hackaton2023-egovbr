@@ -1,26 +1,61 @@
-export interface QrCode {
+// EntityClass
+abstract class EntityClass {
   id: number;
-  description: string;
-  value: string;
-  durationInMinutes: 2;
+  // outros campos comuns
 }
 
-export interface Pagination {
-  currentPage: number;
-  itemsPerPage: number;
-  totalPages: number;
-  totalItems: number;
+// Enum Perfil
+enum Perfil {
+  MASTER = "Default",
+  GARCOM = "Admin",
+  // outros valores
 }
 
-export interface ResponseData<T> {
-  data: T[];
-  pagination: Pagination;
+// Classe Postagem
+class Postagem extends EntityClass {
+  avaliacao?: Avaliacao | null;
+  descricaoPostagem: string;
+  tituloPostagem: string;
+  urlImagem: string;
 }
 
-export interface ApiErrorResponse {
-  type: string;
-  title: string;
-  status: number;
-  detail: string;
-  instance: string;
+// Classe Avaliacao
+class Avaliacao extends EntityClass {
+  setor: Setor;
+  perguntas: Pergunta[];
+  titulo: string;
+  descricao: string;
+  concluida: boolean;
+  emProcesso: boolean;
+  sugestaoResultado: string;
+  planoAcaoSetor: string;
+  benfeitoriaReaizada: string;
+}
+
+// Classe Pergunta (Apenas um placeholder, já que não foi definida no código original)
+class Pergunta extends EntityClass {
+  // Defina os campos aqui
+}
+
+// Classe Setor
+class Setor extends EntityClass {
+  nome: string;
+  usuarios: Usuario[];
+}
+
+// Classe Usuario
+class Usuario extends EntityClass {
+  nome: string;
+  login: string;
+  email: string;
+  senha: string;
+  cpf: string;
+  perfis: Set<Perfil>;
+}
+
+// Classe Grupo
+class Grupo extends EntityClass {
+  nome: string;
+  caminhoIcone: string;
+  setores: Setor[];
 }
