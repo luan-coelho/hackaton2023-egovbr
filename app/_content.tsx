@@ -16,7 +16,7 @@ export default function Content({ children }: { children: React.ReactNode }) {
     <>
       <div className={`relative w-full flex flex-col`}>
         <HeaderRoot />
-        <main className="mt-[70px] p-8 pb-20">
+        <main className="mt-[70px] p-8 pb-[170px]">
           {/*<RouteBack />*/}
           {loading && <Loading />}
           {children}

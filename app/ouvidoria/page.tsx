@@ -24,6 +24,9 @@ type Setor = {
 }
 
 export default function FormOvedoria() {
+  const [tituloformulario, setTituloformulario] = useState<string>();
+  const [descricaoformulario, setDescricaoformulario] = useState<string>();
+
   const [showForm, setShowForm] = useState<boolean>(false);
   const [perguntas, setPerguntas] = useState<Pergunta[]>([]);
   const [pergunta, setPergunta] = useState<Pergunta>({} as Pergunta);
@@ -102,11 +105,11 @@ export default function FormOvedoria() {
         className="bg-zinc-800 flex items-center justify-center text-center font-medium text-white rounded-t-xl rounded-b-3xl">
         <CardTitle className="text-xl">Formulário</CardTitle>
       </CardHeader>
-      <CardContent className="px-3 py-4">
+      <CardContent className="px-8 py-10">
 
         <Label>Setor</Label>
         <Select>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="Selecione..." />
           </SelectTrigger>
           <SelectContent className="bg-white">
@@ -118,7 +121,21 @@ export default function FormOvedoria() {
           </SelectContent>
         </Select>
 
-        <div className="mt-5">
+        <div className="flex gap-4">
+          <div className="w-6/12 mt-4 flex flex-col gap-1">
+            <Label className="font-medium" htmlFor="pergunta">Título</Label>
+            <Input onChange={(e) => setTituloformulario(e.target.value)} type="text"
+                   value={tituloformulario} />
+          </div>
+
+          <div className="w-6/12 mt-4 flex flex-col gap-1">
+            <Label className="font-medium" htmlFor="pergunta">Descrição</Label>
+            <Input onChange={(e) => setDescricaoformulario(e.target.value)} type="text"
+                   value={descricaoformulario} />
+          </div>
+        </div>
+
+        <div className="m-10">
           {perguntas.map((p, index) => {
             return <>
               <div>
@@ -133,18 +150,26 @@ export default function FormOvedoria() {
           })}
         </div>
 
-        <Button className="bg-yellow-500 text-black mb-3 text-white h-10 w-full" onClick={preencherFormularioIso}>Gerar
-          formulário ISO 9001</Button>
+        <div className="flex gap-2">
+          <Button className="bg-yellow-500 text-black mb-3 text-white h-10 w-full" onClick={preencherFormularioIso}>Gerar
+            formulário ISO 9001</Button>
 
-        {!criandoPergunta &&
-          <Button className="bg-[#044cb8] text-white h-10 w-full" onClick={() => {
-            setShowForm(true);
-            setCriandoPergunta(true);
-          }}>Nova pergunta</Button>
-        }
+          {!criandoPergunta &&
+            <Button className="bg-[#044cb8] text-white h-10 w-full" onClick={() => {
+              setShowForm(true);
+              setCriandoPergunta(true);
+            }}>Nova pergunta</Button>
+          }
+
+          {perguntas.length > 0 &&
+            <Button
+              className="bg-red-600 text-white h-10 w-full" onClick={() => setPerguntas([])}>
+              Limpar perguntas</Button>
+          }
+        </div>
 
         {showForm &&
-          <div className="mt-4">
+          <div className="m-4">
             <div className="mt-4 flex flex-col gap-1">
               <label className="font-medium" htmlFor="pergunta">Pergunta</label>
               <Textarea className="h-40" onChange={(e) => setDescricaoPergunta(e.target.value)}
@@ -177,6 +202,11 @@ export default function FormOvedoria() {
               Adicionar pergunta</Button>
           </div>
         }
+
+        <Button disabled={!tituloformulario || !descricaoformulario || perguntas.length == 0}
+                className="mt-3 bg-green-600 text-white h-10 w-full" onClick={adicionarPergunta}>
+          Salvar avaliação
+        </Button>
 
       </CardContent>
     </Card>
