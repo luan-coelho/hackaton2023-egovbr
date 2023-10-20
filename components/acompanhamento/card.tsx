@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {Postagem } from "@/types";
+import { Postagem } from "@/types";
 
 type PostagemCardProps = {
   postagem: Postagem
@@ -8,7 +8,7 @@ type PostagemCardProps = {
 export default function PostagemCard({ postagem }: PostagemCardProps) {
   return <>
     <div
-      className="bg-[#044CB8] flex items-center gap-4 w-[300px] flex items-center justify-center rounded-2xl flex-col">
+      className="bg-[#044CB8] flex items-center gap-4 w-[300px] justify-center rounded-2xl flex-col">
       <div className="rounded-2xl">
         <Image className="rounded-2xl w-full font-medium" src={postagem.urlImagem} alt="ew" width={200} height={200} />
       </div>
