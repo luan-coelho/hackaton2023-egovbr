@@ -1,0 +1,16 @@
+{
+  "setor": [
+    {
+      "id": 1,
+      "descricao": "Vendas"
+    },
+    {
+      "id": 2,
+      "descricao": "Atendimento"
+    },
+    {
+      "id": 3,
+      "descricao": "Compras"
+    }
+  ]
+}
