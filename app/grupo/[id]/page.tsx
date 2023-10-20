@@ -51,6 +51,11 @@ export default function EditarGrupo({ params }: {
     router.push("/grupo");
   }
 
+  // async function deletarGrupo() {
+  //   await api.delete(`http://localhost:8080/grupo/${data?.id}`);
+  //   router.push("/grupo");
+  // }
+
   return (
     <>{!isLoading &&
       <FormProvider {...createGrupo}>
@@ -69,7 +74,10 @@ export default function EditarGrupo({ params }: {
             <Form.TextField name="imagem" defaultValue={data?.imagem} />
             <Form.ErrorMessage field="imagem" />
           </Form.Field>
-          <DialogFooter>
+          <DialogFooter className="flex gap-1">
+            {/*<Button onClick={deletarGrupo} className="bg-red-600 text-white" type="submit">*/}
+            {/*  Deletar*/}
+            {/*</Button>*/}
             <Button className="bg-blue-600 text-white" type="submit">
               Atualizar
             </Button>

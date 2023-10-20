@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
-import React from "react";
+import React, { useState } from "react";
 
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -14,7 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import pt from "date-fns/locale/pt";
 import { Grupo, Setor } from "@/types";
 import api from "@/services/api";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useFetch } from "@/hooks/useFetch";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -26,11 +26,11 @@ export default function EditarGrupo({ params }: {
     id: number
   }
 }) {
+  const [grupoId, setGrupoId] = useState<string>();
   const router = useRouter();
 
   const { data: setorData, isLoading: isSetorLoading } = useFetch<Setor>(`http://localhost:8080/setor/${params.id}`);
   const { data: grupoData, isLoading: isGrupoLoading } = useFetch<Grupo[]>("http://localhost:8080/grupo");
-
 
 
   const schema = z.object({
@@ -40,49 +40,52 @@ export default function EditarGrupo({ params }: {
 
   const createSetor = useForm<Setor>({
     resolver: zodResolver(schema),
-    defaultValues: setorData
+    defaultValues: setorData,
   });
 
   const { handleSubmit } = createSetor;
 
   async function atualizarSetor(setor: Setor) {
+    setor.grupo = grupoData?.find((g) => g.id = Number.parseInt(grupoId!))!;
     await api.put(`http://localhost:8080/setor/${setorData?.id}`, setor);
     router.push("/setor");
   }
 
   return (
     <>
-      <FormProvider {...createSetor}>
-        <form onSubmit={handleSubmit(atualizarSetor)} className="grid gap-4">
-          <Form.Field>
-            <Form.Label htmlFor="descricao">
-              Descricao
-            </Form.Label>
-            <Form.TextField name="descricao" />
-            <Form.ErrorMessage field="descricao" />
-          </Form.Field>
-          <Form.Field>
-            <Label>Setor</Label>
-            <Select>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Selecione..." />
-              </SelectTrigger>
-              <SelectContent className="bg-white">
-                <SelectGroup>
-                  {!isGrupoLoading && grupoData!.map((grupo) => {
-                    return <><SelectItem value={grupo.id.toString()}>{grupo.titulo}</SelectItem></>;
-                  })}
-                </SelectGroup >
-              </SelectContent>
-            </Select>
-          </Form.Field>
-          <DialogFooter>
-            <Button className="bg-blue-600 text-white" type="submit">
-              Atualizar
-            </Button>
-          </DialogFooter>
-        </form>
-      </FormProvider>
+      {!isSetorLoading && !isGrupoLoading &&
+        <FormProvider {...createSetor}>
+          <form onSubmit={handleSubmit(atualizarSetor)} className="grid gap-4">
+            <Form.Field>
+              <Form.Label htmlFor="descricao">
+                Descricao
+              </Form.Label>
+              <Form.TextField name="descricao" defaultValue={setorData?.descricao} />
+              <Form.ErrorMessage field="descricao" />
+            </Form.Field>
+            <Form.Field>
+              <Label>Setor</Label>
+              <Select defaultValue={setorData?.grupo.id.toString()} value={grupoId} onValueChange={setGrupoId}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Selecione..." />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  <SelectGroup>
+                    {!isGrupoLoading && grupoData!.map((grupo) => {
+                      return <><SelectItem value={grupo.id.toString()}>{grupo.titulo}</SelectItem></>;
+                    })}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </Form.Field>
+            <DialogFooter>
+              <Button className="bg-blue-600 text-white" type="submit">
+                Atualizar
+              </Button>
+            </DialogFooter>
+          </form>
+        </FormProvider>
+      }
     </>
   );
 }

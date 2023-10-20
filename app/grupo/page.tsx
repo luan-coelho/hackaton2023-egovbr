@@ -5,10 +5,12 @@ import GrupoCard from "@/components/acompanhamento/grupocard";
 import { useFetch } from "@/hooks/useFetch";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { mutate } from "swr";
 
-export default function ListaGrupo() {
+export default async function ListaGrupo() {
   const { data, isLoading } = useFetch<Grupo[]>("http://localhost:8080/grupo");
   const router = useRouter();
+  await mutate("/grupo");
 
 
   return <>
@@ -19,7 +21,7 @@ export default function ListaGrupo() {
       </div>
       <div className="grid grid-cols-2 gap-10 content-center">
         {!isLoading && data!.map((g) => {
-          return <GrupoCard grupo={g} />;
+          return <> <GrupoCard grupo={g} /> </>;
         })}
       </div>
     </div>

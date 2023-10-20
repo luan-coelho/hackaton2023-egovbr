@@ -9,7 +9,7 @@ export default function HeaderRoot() {
       </div>
 
       <div>
-        <ul className="font-medium flex gap-2">
+        <ul className="font-medium flex gap-4">
           <li>
             <Link href="/home">Home</Link>
           </li>

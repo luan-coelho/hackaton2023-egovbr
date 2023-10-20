@@ -8,7 +8,7 @@ function useFetch<Data = any, Error = any>(url: string) {
       const response = await api.get<Data>(url);
       return response.data;
     },
-    { revalidateIfStale: false, revalidateOnFocus: false, revalidateOnMount: true, revalidateOnReconnect: false },
+    { revalidateIfStale: true, revalidateOnFocus: false, revalidateOnMount: true, revalidateOnReconnect: true },
   );
   return { isLoading, data, error, mutate } as SWRResponse<Data>;
 }

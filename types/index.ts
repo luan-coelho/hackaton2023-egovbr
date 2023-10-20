@@ -27,8 +27,8 @@ export type Setor = {
 
 export type Grupo = {
   id: number,
-  titulo: string,
-  imagem: string
+  titulo?: string,
+  imagem?: string
 }
 
 export type Usuario = {
