@@ -19,13 +19,6 @@ import { useFetch } from "@/hooks/useFetch";
 
 registerLocale("pt", pt);
 
-const schema = z.object({
-  titulo: z.string()
-    .nonempty("O título é obrigatório"),
-  imagem: z.string()
-    .nonempty("Informe um link da imagem"),
-});
-
 export default function EditarGrupo({ params }: {
   params: {
     id: number
@@ -35,8 +28,16 @@ export default function EditarGrupo({ params }: {
 
   const { data, isLoading } = useFetch<Grupo>(`http://localhost:8080/grupo/${params.id}`);
 
+  const schema = z.object({
+    titulo: z.string()
+      .nonempty("O título é obrigatório"),
+    imagem: z.string()
+      .nonempty("Informe um link da imagem"),
+  });
+
   const createGrupo = useForm<Grupo>({
     resolver: zodResolver(schema),
+    defaultValues: data
   });
 
   const { handleSubmit } = createGrupo;
