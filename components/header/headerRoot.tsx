@@ -9,7 +9,7 @@ export default function HeaderRoot() {
 
       <div>
         <ul className="font-medium flex gap-2">
-          <li>Página</li>
+          <li >Página</li>
           <li>Página</li>
           <li>Página</li>
           <li>Página</li>

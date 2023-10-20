@@ -21,7 +21,7 @@ export type Avaliacao = {
 export type Setor = {
   id: number,
   usuarios: Usuario[],
-  titulo: string,
+  descricao: string,
   grupo: Grupo
 }
 
