@@ -10,8 +10,6 @@ import { mutate } from "swr";
 export default async function ListaGrupo() {
   const { data, isLoading } = useFetch<Grupo[]>("http://localhost:8080/grupo");
   const router = useRouter();
-  await mutate("/grupo");
-
 
   return <>
     <div className="flex items-center justify-center flex-col gap-10">
