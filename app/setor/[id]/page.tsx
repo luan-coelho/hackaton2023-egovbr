@@ -46,7 +46,9 @@ export default function EditarGrupo({ params }: {
   const { handleSubmit } = createSetor;
 
   async function atualizarSetor(setor: Setor) {
-    setor.grupo = grupoData?.find((g) => g.id = Number.parseInt(grupoId!))!;
+    let grupoAux = Number.parseInt(grupoId!);
+    const reponse = await api.get(`http://localhost:8080/grupo/${grupoAux}`);
+    setor.grupo = await reponse.data;
     await api.put(`http://localhost:8080/setor/${setorData?.id}`, setor);
     router.push("/setor");
   }
@@ -65,14 +67,14 @@ export default function EditarGrupo({ params }: {
             </Form.Field>
             <Form.Field>
               <Label>Setor</Label>
-              <Select defaultValue={setorData?.grupo.id.toString()} value={grupoId} onValueChange={setGrupoId}>
+              <Select defaultValue={setorData?.grupo.id.toString()} onValueChange={setGrupoId}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Selecione..." />
                 </SelectTrigger>
                 <SelectContent className="bg-white">
                   <SelectGroup>
-                    {!isGrupoLoading && grupoData!.map((grupo) => {
-                      return <><SelectItem value={grupo.id.toString()}>{grupo.titulo}</SelectItem></>;
+                    {grupoData!.map((grupo) => {
+                      return <><SelectItem key={grupo.id} value={grupo.id.toString()}>{grupo.titulo}</SelectItem></>;
                     })}
                   </SelectGroup>
                 </SelectContent>
