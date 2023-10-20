@@ -10,7 +10,7 @@ export default function Home() {
   return <>
     {!isLoading &&
       <div className="flex items-center justify-center">
-        <div className="grid grid-cols-2 gap-10 content-center">
+        <div className="grid grid-cols-3 gap-10 content-center">
           {data!.map((p) => {
             return <><PostagemCard postagem={p} /> </>;
           })}
