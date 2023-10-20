@@ -37,7 +37,11 @@ export default function EditarGrupo({ params }: {
 
   const createGrupo = useForm<Grupo>({
     resolver: zodResolver(schema),
-    defaultValues: data
+    defaultValues: {
+      id: data?.id,
+      imagem: data?.imagem,
+      titulo: data?.titulo,
+    },
   });
 
   const { handleSubmit } = createGrupo;
@@ -48,21 +52,21 @@ export default function EditarGrupo({ params }: {
   }
 
   return (
-    <>
+    <>{!isLoading &&
       <FormProvider {...createGrupo}>
         <form onSubmit={handleSubmit(atualizarGrupo)} className="grid gap-4">
           <Form.Field>
             <Form.Label htmlFor="titulo">
               Título
             </Form.Label>
-            <Form.TextField name="titulo" />
+            <Form.TextField name="titulo" defaultValue={data?.titulo} />
             <Form.ErrorMessage field="titulo" />
           </Form.Field>
           <Form.Field>
             <Form.Label htmlFor="imagem">
               URL da imagem
             </Form.Label>
-            <Form.TextField name="imagem" />
+            <Form.TextField name="imagem" defaultValue={data?.imagem} />
             <Form.ErrorMessage field="imagem" />
           </Form.Field>
           <DialogFooter>
@@ -72,6 +76,7 @@ export default function EditarGrupo({ params }: {
           </DialogFooter>
         </form>
       </FormProvider>
+    }
     </>
   );
 }
