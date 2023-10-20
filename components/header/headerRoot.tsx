@@ -20,7 +20,7 @@ export default function HeaderRoot() {
             <Link href="/grupo">Grupo</Link>
           </li>
           <li>
-            <Link href="/avaliacao">Avaliação</Link>
+            <Link href="/ouvidoria">Avaliação</Link>
           </li>
         </ul>
       </div>

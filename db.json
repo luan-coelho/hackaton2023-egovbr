@@ -1,7 +1,7 @@
 {
   "setor": [
     {
-      "descricao": "TI",
+      "descricao": "TI - UNITINS",
       "id": 1,
       "grupo": {
         "id": 1,
@@ -10,7 +10,7 @@
       }
     },
     {
-      "descricao": "ADMINISTRAÇÃO",
+      "descricao": "ADMINISTRAÇÃO - UNITINS",
       "id": 2,
       "grupo": {
         "id": 1,
@@ -19,7 +19,7 @@
       }
     },
     {
-      "descricao": "SETOR 3 ",
+      "descricao": "SETOR 3 - UNITINS",
       "id": 3,
       "grupo": {
         "id": 1,
@@ -28,7 +28,7 @@
       }
     },
     {
-      "descricao": "TI",
+      "descricao": "TI - SECAD",
       "id": 1,
       "grupo": {
         "id": 2,
@@ -37,7 +37,7 @@
       }
     },
     {
-      "descricao": "ADMINISTRAÇÃO",
+      "descricao": "ADMINISTRAÇÃO - SECAD",
       "id": 2,
       "grupo": {
         "id": 2,
@@ -46,7 +46,7 @@
       }
     },
     {
-      "descricao": "SETOR 3 ",
+      "descricao": "SETOR 3 - SECAD",
       "id": 3,
       "grupo": {
         "id": 2,
@@ -55,7 +55,7 @@
       }
     },
     {
-      "descricao": "TI",
+      "descricao": "TI - ATI",
       "id": 1,
       "grupo": {
         "id": 3,
@@ -64,7 +64,7 @@
       }
     },
     {
-      "descricao": "ADMINISTRAÇÃO",
+      "descricao": "ADMINISTRAÇÃO - ATI",
       "id": 2,
       "grupo": {
         "id": 3,
@@ -73,7 +73,7 @@
       }
     },
     {
-      "descricao": "SETOR 3 ",
+      "descricao": "SETOR 3 - ATI",
       "id": 3,
       "grupo": {
         "id": 3,
